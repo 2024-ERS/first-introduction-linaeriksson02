@@ -147,7 +147,7 @@ set if you want different aspects as the code itself, the output from
 that code, warnings, etc in the output document.
 
 | Execute option: | Descript                                                                                                                                                                                    |
-|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|-------------------|-----------------------------------------------------|
 | eval            | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                             |
 | output          | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown). |
 | warning         | Include warnings in the output.                                                                                                                                                             |
@@ -174,3 +174,18 @@ deviation, $\operatorname{erf}(z)$ is the error function defined by:
 $$
 \operatorname{erf}(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} \, dt
 $$
+
+### by lina
+
+Make a simpel codeblock
+
+```{r,}
+# define a variable A and assign the value 5 to it
+A <- 5
+# same fora variable B
+B <- 10
+# calculate the sum of A and B and call it C
+C <- A + B
+# print the result
+print(C)
+```
