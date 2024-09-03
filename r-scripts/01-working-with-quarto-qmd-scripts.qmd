@@ -147,7 +147,7 @@ set if you want different aspects as the code itself, the output from
 that code, warnings, etc in the output document.
 
 | Execute option: | Descript                                                                                                                                                                                    |
-|-------------------|-----------------------------------------------------|
+|--------------------|----------------------------------------------------|
 | eval            | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                             |
 | output          | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown). |
 | warning         | Include warnings in the output.                                                                                                                                                             |
@@ -188,4 +188,41 @@ B <- 10
 C <- A + B
 # print the result
 print(C)
+# calculate the mean of 2, 4, 12, 38
+my_numbers <- c(1,4,12,38)
+mean(my_numbers)
+base::mean(my_numbers)
 ```
+
+You can find functions by typing ?function. There you can also find the
+package, in this case base.
+(print) is used to display numbers in the console.
+
+Then make a plot
+
+```{r, message = FALSE, warning = FLASE}
+#| label: fig-histogram
+#| fig-cap: Histogram of 100 random values from a normal distribution with 0 mean and 1 standard deviation
+# this is to name and make a link to the figure in the text when named like @fig-histogram
+
+library(tidyverse)
+# tidyverse is a very complex set of packages, including a lot
+# set the seed of the random number generator (gives same result)
+set.seed(123)
+# generate 100 random values form a normal distribution with mean=0 and standard deviation 1
+randomvalue <- rnorm(n = 100, mean = 0, sd = 1)
+# convert to a dataframe from a vector
+data1<-data.frame(randomvalue)
+print(data1)
+# plot as a histogram
+ggplot2::ggplot(data=data1, 
+                mapping=aes(x=randomvalue)) +
+  geom_histogram()
+#by using ?ggplot, we can see the function comes from ggplot2
+
+```
+
+Library contains the books, packages are the versions of the books. You
+can have a library with different packages, but packages are only yours
+when you make them yourself. Library is a set of functions, trasncribed
+in packages.
