@@ -226,3 +226,5 @@ Library contains the books, packages are the versions of the books. You
 can have a library with different packages, but packages are only yours
 when you make them yourself. Library is a set of functions, trasncribed
 in packages.
+
+stage + commit + push
