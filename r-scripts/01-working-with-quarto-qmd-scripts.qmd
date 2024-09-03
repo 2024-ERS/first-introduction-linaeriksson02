@@ -177,7 +177,7 @@ $$
 \operatorname{erf}(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} \, dt
 $$
 
-### by lina
+###8. by lina
 
 Make a simpel codeblock
 
