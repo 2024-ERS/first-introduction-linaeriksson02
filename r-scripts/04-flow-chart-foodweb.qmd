@@ -27,3 +27,6 @@ flowchart BT
   D --> G(elephant)
   H[trees] --> G
 ```
+
+### by lina
+flowchart is very easy to make, by using flowchart BT and naming the relationships and the involved.
