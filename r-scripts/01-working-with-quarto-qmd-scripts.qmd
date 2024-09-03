@@ -6,6 +6,8 @@ format: html
 editor: 
   markdown: 
     wrap: 72
+editor_options:
+  chunk_output_type: console
 ---
 
 # Working with Quarto documents in R
@@ -147,7 +149,7 @@ set if you want different aspects as the code itself, the output from
 that code, warnings, etc in the output document.
 
 | Execute option: | Descript                                                                                                                                                                                    |
-|--------------------|----------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | eval            | Evaluate the code chunk (if false, just echos the code into the output). echo Include the source code in output                                                                             |
 | output          | Include the results of executing the code in the output (true, false, or asis to indicate that the output is raw markdown and should not have any of Quarto’s standard enclosing markdown). |
 | warning         | Include warnings in the output.                                                                                                                                                             |
@@ -195,8 +197,8 @@ base::mean(my_numbers)
 ```
 
 You can find functions by typing ?function. There you can also find the
-package, in this case base.
-(print) is used to display numbers in the console.
+package, in this case base. (print) is used to display numbers in the
+console.
 
 Then make a plot
 
@@ -228,3 +230,5 @@ when you make them yourself. Library is a set of functions, trasncribed
 in packages.
 
 stage + commit + push
+
+w
