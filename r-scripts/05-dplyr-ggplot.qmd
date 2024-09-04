@@ -49,12 +49,16 @@ x) and length (length_mm), showing each year with a different color, and
 add a regression line through all the years
 
 ```{r}
+ggplot(data=FactCockleSize, 
+       mapping=aes(x=thickness_mm,y=length_mm, colour=year)) +
+  geom_line()
 
 ```
 
 Further explore the plot with a regression line through all the data
 
 ```{r}
+
 ```
 
 Make same plot but showing a separate regression line per year
