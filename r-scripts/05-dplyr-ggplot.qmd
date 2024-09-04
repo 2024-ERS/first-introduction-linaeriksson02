@@ -113,14 +113,26 @@ line: y=b0+b1\*x.
 Make same plot but showing a separate regression line per year
 
 ```{r}
-# color the points by year, but plot one regression line
-ggplot2::ggplot(data=FactCockleSize,
-                mapping=aes(x=thickness_mm, y=length_mm) + geom_point(mapping=aes(col=year)) + geom_smooth(method="lm") 
+#color the points by year, but plot one regression line
+ggplot2::ggplot(data=FactCockleSize, mapping=aes(x=thickness_mm, y=length_mm)) + geom_point(mapping=aes(col=year)) + geom_smooth(method="lm")
 ```
 
 Make a panel plot where with each year is shown as a separate graph
 
 ```{r}
+data=FactCockleSize |> dplyr::filter(year %in% c(2014,2015,2017,2018,2020,2021)) |> 
+  dplyr::mutate(year=factor(year)) |>
+  ggplot2::ggplot(mapping=aes(x=thickness_mm, y=length_mm)) +
+                    geom_point(mapping=aes(col=year)) + 
+                    geom_smooth(method="lm") + facet_wrap(~year) 
+
+drop_na(FactCockleSize) |> 
+  ggplot2::ggplot(mapping=aes(x=length_mm, y=thickness_mm)) +
+  geom_point(aes(col=year)) +
+               xlab("cockle length(mm)") +
+               ylab("cockle width (mm)") +
+               geom_smooth(method='lm') +
+               facet_wrap(~year)
 ```
 
 We conclude from this that: \* there were two important outliers in the
