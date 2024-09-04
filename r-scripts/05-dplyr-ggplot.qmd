@@ -6,6 +6,8 @@ format: html
 editor: 
   markdown: 
     wrap: 72
+editor_options:
+  chunk_output_type: console
 ---
 
 # Working with the dplyr and ggplot2 packages
@@ -13,6 +15,9 @@ editor:
 Load the required libraries :
 
 ```{r message = FALSE, warning = FALSE}
+#restore your library
+renv::restore()
+
 # clear the R environment
 rm(list = ls())
 
@@ -42,6 +47,9 @@ Read the FactCockleSize table with read_csv, which reads it as tibble
 
 ```{r}
 FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM4uWMTIZYm9Upt5j1Ige_Wu9CrhGGdvjXwxmHP2R6S7JDyEmiGTn3fXihl5s5yBn_sdo8h/pub?gid=1538766002&single=true&output=csv")
+print(FactCockleSize)
+names(FactCockleSize)
+nrow(FactCockleSize)
 ```
 
 Plot with ggplot the relation between cockle thickness (thickness_mm, as
@@ -49,9 +57,33 @@ x) and length (length_mm), showing each year with a different color, and
 add a regression line through all the years
 
 ```{r}
+str(FactCockleSize)
 ggplot(data=FactCockleSize, 
        mapping=aes(x=thickness_mm,y=length_mm, colour=year)) +
   geom_line()
+
+ggplot2::ggplot(data=FactCockleSize,
+                mapping=aes(x=thickness_mm, y=length_mm, colour=year)) + geom_point() + geom_line()
+#there is a big outlier, likely a data entry mistake, remove it
+FactCockleSize |> dplyr::filter(thickness_mm>500)
+# cockle 1531 is the outlier
+
+# remove the outlier
+FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM4uWMTIZYm9Upt5j1Ige_Wu9CrhGGdvjXwxmHP2R6S7JDyEmiGTn3fXihl5s5yBn_sdo8h/pub?gid=1538766002&single=true&output=csv") |> dplyr::filter(thickness_mm<500)
+#or
+FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM4uWMTIZYm9Upt5j1Ige_Wu9CrhGGdvjXwxmHP2R6S7JDyEmiGTn3fXihl5s5yBn_sdo8h/pub?gid=1538766002&single=true&output=csv") |> dplyr::filter(CockleObs_ID!=1531)
+
+ggplot2::ggplot(data=FactCockleSize,
+                mapping=aes(x=thickness_mm, y=length_mm, colour=year)) + geom_point() + geom_line()
+
+# another outlier
+FactCockleSize |> dplyr::filter(thickness_mm>10 & length_mm<5)
+# also remove 469
+FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM4uWMTIZYm9Upt5j1Ige_Wu9CrhGGdvjXwxmHP2R6S7JDyEmiGTn3fXihl5s5yBn_sdo8h/pub?gid=1538766002&single=true&output=csv") |> dplyr::filter(CockleObs_ID!=1531, CockleObs_ID!=469)
+
+# plot again
+ggplot2::ggplot(data=FactCockleSize,
+                mapping=aes(x=thickness_mm, y=length_mm, colour=year)) + geom_point() + geom_line()
 
 ```
 
