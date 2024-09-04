@@ -76,27 +76,46 @@ FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PAC
 ggplot2::ggplot(data=FactCockleSize,
                 mapping=aes(x=thickness_mm, y=length_mm, colour=year)) + geom_point() + geom_line()
 
-# another outlier
+# another outlier and make the year a factor 
 FactCockleSize |> dplyr::filter(thickness_mm>10 & length_mm<5)
 # also remove 469
-FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM4uWMTIZYm9Upt5j1Ige_Wu9CrhGGdvjXwxmHP2R6S7JDyEmiGTn3fXihl5s5yBn_sdo8h/pub?gid=1538766002&single=true&output=csv") |> dplyr::filter(CockleObs_ID!=1531, CockleObs_ID!=469)
+FactCockleSize <- readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSpormjGiM4uWMTIZYm9Upt5j1Ige_Wu9CrhGGdvjXwxmHP2R6S7JDyEmiGTn3fXihl5s5yBn_sdo8h/pub?gid=1538766002&single=true&output=csv") |> dplyr::filter(CockleObs_ID!=1531, CockleObs_ID!=469) |>  dplyr::mutate(year=factor(year))
+print(FactCockleSize)
 
 # plot again
 ggplot2::ggplot(data=FactCockleSize,
-                mapping=aes(x=thickness_mm, y=length_mm, colour=year)) + geom_point() + geom_line()
+                mapping=aes(x=thickness_mm, y=length_mm)) + 
+  geom_point()
 
 ```
 
 Further explore the plot with a regression line through all the data
 
 ```{r}
+ggplot2::ggplot(data=FactCockleSize,
+                mapping=aes(x=thickness_mm, y=length_mm, colour=year)) + geom_point() + geom_smooth(method=lm) 
+
+#calculate a linear regression
+model_lm <- lm(thickness_mm~length_mm, data=FactCockleSize) 
+summary(model_lm)
+# intercept=-0.3534 and regressio=0.6994
+# equation: thickness_mm = -0.3534 + length_mm * 0.6993
+# a cockle of length 20 mm has an predicted width of:
+-0.3534 + 20 * 0.6993
+# 13.6326
+# this regression is significant, R2=0.90, P<0.001 (***) (very signficant)
 
 ```
+
+Calculate a linear model by lm, where model_lm=lm(x\~y). Regression
+line: y=b0+b1\*x.
 
 Make same plot but showing a separate regression line per year
 
 ```{r}
 # color the points by year, but plot one regression line
+ggplot2::ggplot(data=FactCockleSize,
+                mapping=aes(x=thickness_mm, y=length_mm) + geom_point(mapping=aes(col=year)) + geom_smooth(method="lm") 
 ```
 
 Make a panel plot where with each year is shown as a separate graph
