@@ -194,11 +194,20 @@ p1 + geom_line(data=orchdat3, aes(y=predict6, col=factor(year)),
 
 # add the interaction to the model: elevation + elevation ^2 + year + elevation*year
 # now test and show  the effect of both elevation + year
-
+m7 <- glm(CountSum~elevation_m + I(elevation_m^2) + factor(year) + elevation_m*factor(year),
+          data=orchdat3, family=poisson(log))
+orchdat3$predict7 <- predict(m7, type="response")
+p1 + geom_line(data=orchdat3, aes(y=predict7, col=factor(year)), 
+               linewidth=1.2)
+anova(m7, test="Chisq")
+anova(m6,m7)
+# better model
 
 #add the  model to the plot
 # calculate the predicted value of m2 for every observation, add to the dataset as a variable as pred2
 # add the new predicted line to the previous plot p2, store as object p3 and show it
+
+
 
 
 
