@@ -207,9 +207,13 @@ anova(m6,m7)
 # calculate the predicted value of m2 for every observation, add to the dataset as a variable as pred2
 # add the new predicted line to the previous plot p2, store as object p3 and show it
 
-
-
-
-
+p1<- orchdat3  |> 
+  ggplot2::ggplot(mapping=aes(x=elevation_m, y=CountSum, 
+                              color=factor(year))) +
+  geom_smooth(method="lm", formula="y~x+I(x^2)", 
+              method.args=list(family="poisson"), se=F)
+#   geom_point(size=3) +
+p1
+# lm can do both linear and quadratic terms
 
 
